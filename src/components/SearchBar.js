@@ -1,5 +1,6 @@
 // import { data } from 'cypress/types/jquery';
 import React, { useState } from 'react'
+// import { prefetch } from 'webpack'
 
  const SearchBar = () => {
 
@@ -8,7 +9,8 @@ import React, { useState } from 'react'
    const[boolean , setBoolean] = useState("")
     let ApiKey = "e27ab7d6";
     
-     function fetchData(){
+     function fetchData(e){
+        e.preventDefault()
          fetch(`http://www.omdbapi.com/?apikey=${ApiKey}&s=${input}` , {
            method:'GET',
            }).then(response => response.json())
@@ -20,23 +22,28 @@ import React, { useState } from 'react'
                  )
              
              
-            
+             
      }
 
   return (
     <div>
       <h1> Search Movie</h1>
-      <input type='text' value={input} onChange={(e)=>setInput(e.target.value)} />
-      <button onClick={fetchData}>Search</button>
+      <form onSubmit={fetchData}>
+        <input type='text' value={input} onChange={(e)=>setInput(e.target.value)} />
+        <button type='submit'>Search</button>
+      </form>
+      <ul>
       {
+       
        (boolean === "True")  &&  movieArray.map(Element=>(
-            <h2>{Element.Title}</h2>
+            <li>{Element.Title}</li>
             
         ))
       }
+      </ul>
       
         {
-        (boolean === "False") && <h2>Enter Valid Movie Name</h2>
+        (boolean === "False") && <h2 className='error'>Enter Valid Movie Name</h2>
         }
     </div>
   )
