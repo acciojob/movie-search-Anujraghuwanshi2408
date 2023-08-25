@@ -18,6 +18,7 @@ import React, { useState } from 'react'
                  
                  setBoolean(data.Response)
                  setMovieArray(data.Search)
+                 console.log(movieArray)
              }
                  )
              
@@ -36,14 +37,16 @@ import React, { useState } from 'react'
       {
        
        (boolean === "True")  &&  movieArray.map(Element=>(
-            <li>{Element.Title}</li>
+            <li>{Element.Title}
+             <img  src= {Element.Poster}  />
+            </li>
             
         ))
       }
       </ul>
       
         {
-        (boolean === "False") && <h2 className='error'>Enter Valid Movie Name</h2>
+        (boolean === "False") && <h2 className='error'>Invalid movie name. Please try again.</h2>
         }
     </div>
   )
